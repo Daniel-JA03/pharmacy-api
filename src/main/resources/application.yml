@@ -1,0 +1,22 @@
+server:
+  port: ${PORT}
+spring:
+  application:
+    name: farmacia-api
+  datasource:
+    url: jdbc:mysql://localhost:3306/farmacia_db
+    username: ${USER_NAME}
+    password: ${PASSWORD_DB}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        use_sql_comments: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+jwt:
+  secret: ${SECRET}
+  expiration: 36000000
