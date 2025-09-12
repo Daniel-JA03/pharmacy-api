@@ -27,5 +27,5 @@ public class ProductoRequestDto {
     @NotBlank(message = "El lote es obligatorio")
     private String lote;
 
-    private String categoria;
+    private Long categoriaId;
 }
