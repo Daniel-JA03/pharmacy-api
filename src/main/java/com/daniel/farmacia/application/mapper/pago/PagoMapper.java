@@ -6,6 +6,8 @@ import com.daniel.farmacia.domain.entity.Pago;
 import com.daniel.farmacia.domain.entity.Venta;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class PagoMapper {
 
@@ -14,6 +16,7 @@ public class PagoMapper {
                 .idPago(pago.getId())
                 .monto(pago.getMonto())
                 .metodo(pago.getMetodo())
+                .estado(pago.getEstado())
                 .fechaPago(pago.getFechaPago())
                 .transactionId(pago.getTransactionId())
                 .build();
@@ -24,7 +27,7 @@ public class PagoMapper {
                 .monto(requestDto.getMonto())
                 .metodo(requestDto.getMetodo())
                 .estado(requestDto.getEstado())
-                .fechaPago(requestDto.getFechaPago())
+                .fechaPago(LocalDateTime.now()) // la fecha y hora del servidor
                 .transactionId(requestDto.getTransactionId())
                 .venta(venta)
                 .build();

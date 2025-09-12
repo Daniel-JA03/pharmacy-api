@@ -19,6 +19,6 @@ public class PagoRequestDto {
 
     @NotNull(message = "El estado del pago es obligatorio")
     private TipoEstadoPago estado;
-    private LocalDateTime fechaPago; // se asigna automaticamente
+    // private LocalDateTime fechaPago; // se asigna automaticamente
     private String transactionId;
 }
