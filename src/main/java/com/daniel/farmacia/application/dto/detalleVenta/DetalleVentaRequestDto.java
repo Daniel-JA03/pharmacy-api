@@ -14,7 +14,7 @@ public class DetalleVentaRequestDto {
     @NotNull(message = "El precio unitario es obligatorio")
     @DecimalMin(value = "0.0", inclusive = false, message = "El precio unitario debe ser mayor a 0")
     private Double precioUnitario;
-    private Double subTotal; // se calcula automaticamente
+    // private Double subTotal; se calcula automaticamente
 
     @NotNull(message = "El ID de la venta es obligatorio")
     private Long idVenta;
