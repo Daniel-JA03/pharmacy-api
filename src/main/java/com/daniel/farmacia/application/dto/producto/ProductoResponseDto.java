@@ -15,5 +15,6 @@ public class ProductoResponseDto {
     private Integer stock;
     private LocalDate fechaVencimiento;
     private String lote;
-    private String categoria;
+    private Long categoriaId;
+    private String nombreCategoria;
 }

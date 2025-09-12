@@ -48,7 +48,9 @@ public class Producto {
     @NotBlank(message = "El lote es obligatorio")
     private String lote;
 
-    private String categoria;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<DetalleVenta> detalleVentas = new ArrayList<>();
