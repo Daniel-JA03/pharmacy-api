@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 public class VentaRequestDto {
-    private LocalDate fecha; // se asigna automaticamente
+    //private LocalDate fecha; // se asigna automaticamente
 
     @DecimalMin(value = "0.0", inclusive = false, message = "El total debe ser mayor a 0")
     private Double total;

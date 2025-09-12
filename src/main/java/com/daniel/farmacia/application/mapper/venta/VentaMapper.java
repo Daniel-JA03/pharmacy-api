@@ -37,7 +37,7 @@ public class VentaMapper {
 
     public Venta toEntity(VentaRequestDto requestDto, Usuario usuario) {
         return Venta.builder()
-                .fecha(requestDto.getFecha() != null ? requestDto.getFecha() : LocalDate.now())
+                .fecha(LocalDate.now()) // la fecha del servidor
                 .total(requestDto.getTotal()) // TODO: recalcularlo en servicio con calcularTotal()
                 .estado(requestDto.getEstado())
                 .cliente(usuario)
