@@ -10,7 +10,7 @@ public interface IVentaService {
     List<VentaResponseDto> listarVentas();
     VentaResponseDto buscarVentaPorId(Long id);
     List<VentaResponseDto> listarVentasPorCliente(Long clienteId);
-    VentaResponseDto crearVenta(VentaRequestDto ventaRequestDto);
+    VentaResponseDto crearVenta(VentaRequestDto requestDto);
     VentaResponseDto actualizarEstadoVenta(Long id, TipoEstadoVenta estado);
     void eliminarVenta(Long id); 
 }

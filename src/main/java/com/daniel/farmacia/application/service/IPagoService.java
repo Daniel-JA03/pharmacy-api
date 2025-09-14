@@ -9,7 +9,7 @@ import com.daniel.farmacia.application.dto.pago.PagoResponseDto;
  * la creación/actualización de detalles debe hacerse a través de IVentaService
  */
 public interface IPagoService {
-    PagoResponseDto crearPago(PagoRequestDto pago, Long ventaId);
+    PagoResponseDto crearPago(PagoRequestDto requestDto, Long ventaId);
     PagoResponseDto buscarPagoPorId(Long id);
     PagoResponseDto obtenerPagoPorVentaId(Long ventaId);
 }
