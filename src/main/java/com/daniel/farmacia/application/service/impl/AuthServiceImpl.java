@@ -69,9 +69,9 @@ public class AuthServiceImpl implements IAuthService {
             throw new RuntimeException("El telefono ya está registrado");
         }
 
-        // Obtener rol por defecto (USER)
-        Rol rolUser = rolRepository.findById("ROLE_USER")
-                .orElseThrow(() -> new RuntimeException("No USER no encontrado"));
+        // Obtener rol por defecto (CLIENTE)
+        Rol rolUser = rolRepository.findById("ROLE_CLIENTE")
+                .orElseThrow(() -> new RuntimeException("Rol CLIENTE no encontrado en la base de datos"));
 
         // Construir el usuario
         Usuario usuario = Usuario.builder()
