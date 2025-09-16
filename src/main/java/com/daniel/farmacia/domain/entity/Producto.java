@@ -1,5 +1,6 @@
 package com.daniel.farmacia.domain.entity;
 
+import com.daniel.farmacia.domain.entity.type.TipoProducto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Future;
@@ -47,6 +48,12 @@ public class Producto {
     @Column(nullable = false)
     @NotBlank(message = "El lote es obligatorio")
     private String lote;
+
+    @Column(name = "tipo_producto")
+    @Enumerated(EnumType.STRING)
+    private TipoProducto tipoProducto;
+
+    private String marca;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id", nullable = false)
