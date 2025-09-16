@@ -25,6 +25,7 @@ public class DetalleVentaMapper {
                 .idProducto(detalleVenta.getProducto().getId())
                 .nombre(detalleVenta.getProducto().getNombre())
                 .precio(detalleVenta.getProducto().getPrecio())
+                .numeroReceta(detalleVenta.getNumeroReceta())
                 .build();
     }
 
@@ -35,6 +36,7 @@ public class DetalleVentaMapper {
                 .precioUnitario(requestDto.getPrecioUnitario())
                 .venta(venta)
                 .producto(producto) // se asignara despues por ID, o se carga desde BD
+                .numeroReceta(requestDto.getNumeroReceta())
                 .build();
     }
 }
