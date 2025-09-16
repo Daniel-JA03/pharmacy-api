@@ -40,51 +40,38 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/categorias/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
 
-                        // ADMINISTRADOR
-                        // Categorías
-                        .requestMatchers(HttpMethod.POST, "/api/categorias").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/categorias/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/categorias/**").hasAuthority("ROLE_ADMIN")
-                        // Productos
-                        .requestMatchers(HttpMethod.POST, "/api/productos").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/productos/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasAuthority("ROLE_ADMIN")
-                        // Ventas (ADMIN)
-                        .requestMatchers(HttpMethod.PUT, "/api/ventas/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/ventas/**").hasAuthority("ROLE_ADMIN")
-                        // Pagos (ADMIN)
-                        .requestMatchers(HttpMethod.POST, "/api/pagos/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/pagos/**").hasAuthority("ROLE_ADMIN")
-
-                        // FARMACEUTICO
                         // Categorías
                         .requestMatchers(HttpMethod.POST, "/api/categorias").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMACEUTICO")
                         .requestMatchers(HttpMethod.PUT, "/api/categorias/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMACEUTICO")
                         .requestMatchers(HttpMethod.DELETE, "/api/categorias/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMACEUTICO")
+
                         // Productos
                         .requestMatchers(HttpMethod.POST, "/api/productos").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMACEUTICO")
                         .requestMatchers(HttpMethod.PUT, "/api/productos/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMACEUTICO")
                         .requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMACEUTICO")
+
                         // Ventas
                         .requestMatchers(HttpMethod.GET, "/api/ventas/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMACEUTICO", "ROLE_CLIENTE")
                         .requestMatchers(HttpMethod.PUT, "/api/ventas/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMACEUTICO")
-                        // Detalles
-                        .requestMatchers(HttpMethod.GET, "/api/detalles/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMACEUTICO", "ROLE_CLIENTE")
-                        // Pagos
-                        .requestMatchers(HttpMethod.GET, "/api/pagos/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMACEUTICO", "ROLE_CLIENTE")
-
-                        // CLIENTE
-                        //Ventas
+                        .requestMatchers(HttpMethod.DELETE, "/api/ventas/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/ventas").hasAnyAuthority("ROLE_ADMIN", "ROLE_CLIENTE")
                         .requestMatchers(HttpMethod.GET, "/api/ventas/cliente/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_CLIENTE")
+
+                        // Detalles
+                        .requestMatchers(HttpMethod.GET, "/api/detalles/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMACEUTICO", "ROLE_CLIENTE")
+
                         // Pagos
+                        .requestMatchers(HttpMethod.GET, "/api/pagos/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_FARMACEUTICO", "ROLE_CLIENTE")
                         .requestMatchers(HttpMethod.POST, "/api/pagos/venta/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_CLIENTE")
                         .requestMatchers(HttpMethod.GET, "/api/pagos/venta/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_CLIENTE")
+                        .requestMatchers(HttpMethod.DELETE, "/api/pagos/**").hasAuthority("ROLE_ADMIN")
 
+                        // Cualquier otro request requiere autenticación
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(provider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return httpSecurity.build();
     }
 
