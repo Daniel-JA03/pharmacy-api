@@ -1,5 +1,6 @@
 package com.daniel.farmacia.application.service.impl;
 
+import com.daniel.farmacia.application.dto.detalleVenta.DetalleVentaRequestDto;
 import com.daniel.farmacia.application.dto.venta.VentaRequestDto;
 import com.daniel.farmacia.application.dto.venta.VentaResponseDto;
 import com.daniel.farmacia.application.mapper.detalleVenta.DetalleVentaMapper;
@@ -68,6 +69,9 @@ public class VentaServiceImpl implements IVentaService {
         // variable final apunta a la MISMA instancia
         final Venta ventaParaDetalles = venta;
 
+        // Validar receta para antibioticos
+        validarRecetaParaAntibioticos(requestDto.getDetalles());
+
         List<DetalleVenta> detalles = requestDto.getDetalles().stream()
                 .map(dto -> {
                     Producto producto = productoRepository.findById(dto.getIdProducto())
@@ -81,6 +85,19 @@ public class VentaServiceImpl implements IVentaService {
 
         venta = ventaRepository.save(venta);
         return ventaMapper.toDto(venta);
+    }
+
+    private void validarRecetaParaAntibioticos(List<DetalleVentaRequestDto> detalles) {
+        for (DetalleVentaRequestDto detalle : detalles) {
+            Producto producto = productoRepository.findById(detalle.getIdProducto())
+                    .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + detalle.getIdProducto()));
+
+            if ("Antibioticos".equalsIgnoreCase(producto.getCategoria().getNombreCategoria())) {
+                if (detalle.getNumeroReceta() == null || detalle.getNumeroReceta().trim().isEmpty()) {
+                    throw new ResourceNotFoundException("El producto '" + producto.getNombre() + "' requiere receta médica. Por favor, ingrese el numero de receta.");
+                }
+            }
+        }
     }
 
     @Override

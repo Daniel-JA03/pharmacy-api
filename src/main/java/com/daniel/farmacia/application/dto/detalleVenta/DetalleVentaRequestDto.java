@@ -21,4 +21,6 @@ public class DetalleVentaRequestDto {
 
     @NotNull(message = "El ID del producto es obligatorio")
     private Long idProducto;
+
+    private String numeroReceta; // "REC-2025-00123" o "N° 5678"
 }

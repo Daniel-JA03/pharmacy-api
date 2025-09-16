@@ -21,4 +21,6 @@ public class DetalleVentaResponseDto {
     private Long idProducto;
     private String nombre;
     private Double precio;
+
+    private String numeroReceta;
 }

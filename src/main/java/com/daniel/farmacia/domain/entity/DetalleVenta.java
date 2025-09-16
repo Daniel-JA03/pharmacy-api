@@ -38,6 +38,9 @@ public class DetalleVenta {
     @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
 
+    @Column(name = "numero_receta")
+    private String numeroReceta;
+
     // Calcular subtotal automáticamente antes de guardaro actualizar la entidad
     @PrePersist // calcula el subtotal cuando se crea un nuevo detalle
     @PreUpdate // recalcula el subtotal si se modifica cantidad o precio
