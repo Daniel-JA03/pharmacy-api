@@ -1,5 +1,6 @@
 package com.daniel.farmacia.application.dto.producto;
 
+import com.daniel.farmacia.domain.entity.type.TipoProducto;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
@@ -26,6 +27,10 @@ public class ProductoRequestDto {
 
     @NotBlank(message = "El lote es obligatorio")
     private String lote;
+
+    private TipoProducto tipoProducto;
+
+    private String marca;
 
     private Long categoriaId;
 }

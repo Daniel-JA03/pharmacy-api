@@ -54,25 +54,26 @@ public class ProductoServiceImpl implements IProductoService {
     public ProductoResponseDto crearProducto(ProductoRequestDto requestDto) {
         CategoriaResponseDto categoriaResponseDto = categoriaService.buscarCategoriaPorId(requestDto.getCategoriaId());
         Categoria categoria = categoriaMapper.toEntityCategoria(categoriaResponseDto);
+
         Producto producto = productoMapper.toEntity(requestDto, categoria);
-        return productoMapper.toDto(productoRepository.save(producto));
+        producto = productoRepository.save(producto);
+        return productoMapper.toDto(producto);
     }
 
     @Override
     public ProductoResponseDto actualizarProducto(Long id, ProductoRequestDto requestDto) {
         Producto producto = productoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con ID: " + id));
         CategoriaResponseDto categoriaResponseDto = categoriaService.buscarCategoriaPorId(requestDto.getCategoriaId());
         Categoria categoria = categoriaMapper.toEntityCategoria(categoriaResponseDto);
 
-        producto.setNombre(requestDto.getNombreProducto());
-        producto.setDescripcion(requestDto.getDescripcionProducto());
-        producto.setPrecio(requestDto.getPrecioProducto());
-        producto.setStock(requestDto.getStock());
-        producto.setFechaVencimiento(requestDto.getFechaVencimiento());
-        producto.setLote(requestDto.getLote());
-        producto.setCategoria(categoria);
-        return productoMapper.toDto(productoRepository.save(producto));
+        // Reutilizar el mapper para la actualizacion
+        Producto productoActualizado = productoMapper.toEntity(requestDto, categoria);
+        // mantener el ID existente
+        productoActualizado.setId(producto.getId());
+        productoRepository.save(productoActualizado);
+        return productoMapper.toDto(productoActualizado);
+
     }
 
     @Override
